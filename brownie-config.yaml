@@ -9,3 +9,8 @@ compiler:
 dotenv: .env
 wallets:
   from_key: ${PRIVATE_KEY}
+networks:
+  sepolia:
+    verify: True
+etherscan:
+  token: ${ETHERSCAN_TOKEN}
