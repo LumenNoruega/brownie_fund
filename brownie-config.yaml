@@ -11,6 +11,13 @@ wallets:
   from_key: ${PRIVATE_KEY}
 networks:
   sepolia:
+    eth_usd_price_feed: '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e'
     verify: True
+  development:
+    host: http://127.0.0.1
+    port: 8545
+    gas_limit: 6721975
+  ganache-local:
+    verify: False
 etherscan:
   token: ${ETHERSCAN_TOKEN}

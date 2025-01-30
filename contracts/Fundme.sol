@@ -11,7 +11,9 @@ contract FundMe {
     address[] public funders;
     address public owner;
 
-    constructor() public {
+    AggregatorV3Interface public priceFeed;
+    constructor(address _priceFeed) public {
+        priceFeed = AggregatorV3Interface(_priceFeed);
         owner = msg.sender;
     }
 
@@ -26,16 +28,11 @@ contract FundMe {
     }
 
     function getVersion() public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
-        );
+    
         return priceFeed.version();
     }
 
     function getPrice() public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
-        );
         (, int256 answer, , , ) = priceFeed.latestRoundData();
         return uint256(answer * 10000000000);
     }
@@ -73,4 +70,12 @@ contract FundMe {
         }
         funders = new address[](0);
     }
+
+    function getEntranceFee() public view returns (uint256) {
+        uint256 minimumUSD = 50 * 10**18; // Mínimo en USD
+        uint256 price = getPrice(); // Precio actual de ETH en USD (con 10**18 escalado)
+        uint256 precision = 10**18; 
+        return (minimumUSD * precision) / price; // Retorna la tarifa en WEI
+}
+
 }
