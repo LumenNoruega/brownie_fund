@@ -3,7 +3,7 @@ from scripts.helpful_scripts import get_account, deploy_mocks, LOCAL_BLOCKCHAIN_
 from web3 import Web3
 from brownie.network.gas.strategies import LinearScalingStrategy
 
-# Configuración del precio de gas
+
 gas_strategy = LinearScalingStrategy("60 gwei", "70 gwei", 1.1)
 
 
